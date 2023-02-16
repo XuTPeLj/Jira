@@ -8,6 +8,7 @@
         "include_globs": ["*"],
         "js": [
             "js/inPage/jquery-2.1.0.min.js",
+            "js/inPage/jira.task.save.history.js",
             "js/inPage/jira.task.js",
             "js/inPage/board.js"
 
