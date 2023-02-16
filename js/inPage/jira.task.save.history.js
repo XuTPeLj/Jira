@@ -1,4 +1,4 @@
-setInterval(() => {
+(() => {
   if (window.location.host !== 'jira.sholding.ru') return;
   const m = window.location.pathname.match(/^(\/browse\/([a-z]+-\d+))/i);
   if (!m) return;
@@ -16,7 +16,7 @@ setInterval(() => {
       },
       options => {
         console.log('[options]', options.history);
-
+        // options.history = [];
         const findNom = options.history.findIndex(el => el.id === m[2]);
         if (findNom !== -1) {
           const findElement = options.history[findNom];
@@ -25,9 +25,9 @@ setInterval(() => {
           options.history.unshift(findElement);
         } else {
           options.history.unshift({
-            url: m[1],
+            url: window.location.href,
             id: m[2],
-            title: document.title,
+            title: $('h1').text(),
             count: 1,
           });
         }
@@ -38,4 +38,4 @@ setInterval(() => {
       }
     );
   }
-}, 10000);
+})();

@@ -87,7 +87,7 @@ label {
 }
 
 .quiji-popup-form {
-	width: 120px;
+	max-width: 600px;
 }
 
 .quiji-buttons input {
@@ -208,4 +208,20 @@ input[type='text'].quiji-options-jira-url {
 		margin-top: 6px;
 		width: 80%;
 	}
+}
+
+
+.quiji-list td {
+    text-align: left;
+}
+
+.quiji-list td.text {
+    white-space: nowrap;
+    max-width: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.quiji-list td.title {
+
 }
