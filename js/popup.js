@@ -54,7 +54,26 @@ const renderDialog = () => {
       const divListTasks = document.querySelector('.quiji-list');
       console.log('[divListTasks]', divListTasks);
       var a=1;
-      divListTasks.innerHTML = options.history.map(task=>`<tr><td class="text"><a href="${task.url}" target="_blank">${task.id}</a></td><td class="text title" title="${unescape(task.title)}">${task.title}</td><td>${task.count}</td></tr>`).join('');
+      divListTasks.innerHTML = options.history.map(task=>`
+<tr>
+
+  <td class="text">
+    <a href="${task.url}" target="_blank">
+      ${task.id}
+    </a>
+  </td>
+  <td class="text title" title="${unescape(task.title)}">
+    ${task.title}
+  </td>
+  <td class="text">
+    ${task.date || ''}
+  </td>
+  <td>
+    ${task.count}
+  </td>
+
+</tr>
+`).join('');
 
 			setTimeout(() => document.querySelector('#quiji-ticket-id').focus(), 0);
 		}

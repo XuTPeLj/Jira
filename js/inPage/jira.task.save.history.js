@@ -20,14 +20,21 @@
         const findNom = options.history.findIndex(el => el.id === m[2]);
         if (findNom !== -1) {
           const findElement = options.history[findNom];
-          findElement.count += 1;
           options.history.splice(findNom, 1);
           options.history.unshift(findElement);
+
+          findElement.count += 1;
+          findElement.date = (date =>
+              ['getFullYear', 'getMonth', 'getDate'].map(method => date[method]()).map(a => a < 10 ? `0${a}` : a).join('-')
+          )(new Date());
         } else {
           options.history.unshift({
             url: window.location.href,
             id: m[2],
             title: $('h1').text(),
+            date: (date =>
+                ['getFullYear', 'getMonth', 'getDate'].map(method => date[method]()).map(a => a < 10 ? `0${a}` : a).join('-')
+            )(new Date()),
             count: 1,
           });
         }
