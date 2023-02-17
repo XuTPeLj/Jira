@@ -2,15 +2,54 @@
 const _browser = this._browser || this.browser || this.chrome;
 const storage = _browser.storage.sync || _browser.storage.local;
 
+
+function formatDate(dateStr) {
+  if (typeof dateStr !== 'string') return '';
+  const [yearIndex, monthIndex, dayIndex] = [0, 1, 2];
+  textMonth = [
+    'янв',
+    'фев',
+    'мар',
+    'апр',
+    'май',
+    'июн',
+    'июл',
+    'авг',
+    'сен',
+    'окт',
+    'ноя',
+    'дек',
+  ];
+  const textWeek = [
+    'вс',
+    'пн',
+    'вт',
+    'ср',
+    'че',
+    'пя',
+    'су',
+  ];
+  const partsDate = dateStr.split('-');
+  const date = new Date(...partsDate);
+console.log('[]',textMonth[partsDate[monthIndex]],partsDate[monthIndex], monthIndex);
+  return [
+    `[${textWeek[date.getDay()]}]`,
+    partsDate[+dayIndex],
+    textMonth[+partsDate[monthIndex]],
+  ].join(' ');
+}
+
+
 const handleSubmit = event => {
-	if (event) {
-		event.preventDefault();
-	}
-	const ticket = encodeURIComponent(document.querySelector('.quiji-ticket-id').value);
-	if (ticket) {
-		window.setTimeout(() => window.close(), 1000);console.log('[event.target.newTab]',event.target.newTab);
-		_browser.extension.getBackgroundPage().openTicket(ticket, event.target.newTab);
-	}
+  if (event) {
+    event.preventDefault();
+  }
+  const ticket = encodeURIComponent(document.querySelector('.quiji-ticket-id').value);
+  if (ticket) {
+    window.setTimeout(() => window.close(), 1000);
+    console.log('[event.target.newTab]', event.target.newTab);
+    _browser.extension.getBackgroundPage().openTicket(ticket, event.target.newTab);
+  }
 };
 
 const handleLastTicket = (event, defaultOption, lastTicket) => {
@@ -66,7 +105,7 @@ const renderDialog = () => {
     ${task.title}
   </td>
   <td class="text">
-    ${task.date || ''}
+    ${formatDate(task.date)}
   </td>
   <td>
     ${task.count}
