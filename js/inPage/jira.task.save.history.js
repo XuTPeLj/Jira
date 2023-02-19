@@ -27,6 +27,8 @@
           findElement.date = (date =>
               ['getFullYear', 'getMonth', 'getDate'].map(method => date[method]()).map(a => a < 10 ? `0${a}` : a).join('-')
           )(new Date());
+          if ($('h1').text() !== '403 Forbidden')
+            findElement.title = $('h1').text();
         } else {
           options.history.unshift({
             url: window.location.href,
