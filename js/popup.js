@@ -2,6 +2,15 @@
 const _browser = this._browser || this.browser || this.chrome;
 const storage = _browser.storage.sync || _browser.storage.local;
 
+function onClickSelectOption(e) {
+  if (taskId.value) {
+    handleSubmit(e);
+  }
+}
+
+function encodeHTML(raw) {
+  return raw.replace(/[\u00A0-\u9999<>\&]/gim, i => '&#' + i.charCodeAt(0) + ';');
+}
 
 function formatDate(dateStr) {
   if (typeof dateStr !== 'string') return '';
@@ -44,11 +53,14 @@ const handleSubmit = event => {
   if (event) {
     event.preventDefault();
   }
-  const ticket = encodeURIComponent(document.querySelector('.quiji-ticket-id').value);
+  let ticket = encodeURIComponent(document.querySelector('.quiji-ticket-id').value);
   if (ticket) {
+    if (parseInt(ticket)) {
+      ticket = `${select.value}-${ticket}`;
+    }
+
     window.setTimeout(() => window.close(), 1000);
-    console.log('[event.target.newTab]', event.target.newTab);
-    _browser.extension.getBackgroundPage().openTicket(ticket, event.target.newTab);
+    _browser.extension.getBackgroundPage().openTicket(ticket, form.newTab);
   }
 };
 
@@ -76,7 +88,7 @@ const renderDialog = () => {
 
 			const lastTicketButton = createLastTicketButton(options);
 
-			form.addEventListener('submit', handleSubmit);
+      form.onsubmit = handleSubmit;
 			// newButton.addEventListener('click', handleSubmit);
 			// currentButton.addEventListener('click', handleSubmit);
 
@@ -91,18 +103,17 @@ const renderDialog = () => {
 
 
       const divListTasks = document.querySelector('.quiji-list');
-      console.log('[divListTasks]', divListTasks);
       var a=1;
-      divListTasks.innerHTML = options.history.map(task=>`
+      divListTasks.innerHTML = options.history.map(task => `
 <tr>
 
   <td class="text">
-    <a href="${task.url}" target="_blank">
+    <a href="${encodeHTML(task.url)}" target="_blank">
       ${task.id}
     </a>
   </td>
-  <td class="text title" title="${unescape(task.title)}">
-    ${task.title}
+  <td class="text title" title="${encodeHTML(task.title)}">
+    ${encodeHTML(task.title)}
   </td>
   <td class="text">
     ${formatDate(task.date)}
@@ -114,8 +125,26 @@ const renderDialog = () => {
 </tr>
 `).join('');
 
-			setTimeout(() => document.querySelector('#quiji-ticket-id').focus(), 0);
-		}
+      select.onclick = onClickSelectOption;
+
+      select.innerHTML = options.history
+        // Сортировка по дате - но массив уже отсортирован
+        // .sort((a, b) => a.date < b.date ? 1 : a.date > b.date ? -1 : b.count - a.count)
+        .map(a => a.id.replace(/-\d+$/, '')).filter((a, b, c) => {
+          if (a && c.includes(a)) {
+            c.forEach((b, i) => {
+              if (b === a) {
+                c[i] = '';
+              }
+            });
+            return true;
+          }
+          return false;
+        })
+        .map((a, b) => `<option value="${a}" ${b === 0 ? 'selected' : ''} >${a}</option>`);
+
+      setTimeout(() => document.querySelector('#taskId').focus(), 0);
+    }
 	);
 };
 

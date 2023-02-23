@@ -90,6 +90,10 @@ label {
 	max-width: 700px;
 }
 
+.quiji-popup-form p * {
+    vertical-align: middle;
+}
+
 .quiji-buttons input {
 	margin-bottom: 5px;
 }

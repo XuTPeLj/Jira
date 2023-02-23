@@ -10,11 +10,14 @@
 	</head>
 	<body class="quiji-popup filter-block" checked="checked">
   <div>
-    <form class="quiji-popup-form">
+    <form class="quiji-popup-form" id="form">
       <p>
+        <select id="select" size="3" name="project">
+          // js сгененирует проекты по сохраняённым ссылка из Жиры
+        </select>
         <label>
           <strong>Ticket ID</strong>
-          <input type="text" size="50" class="quiji-ticket-id" id="quiji-ticket-id" autofocus required/>
+          <input type="text" size="50" class="quiji-ticket-id" id="taskId" autofocus required/>
         </label>
         <input type="button" value="last ticket" class="quiji-last-ticket"/>
       </p>
