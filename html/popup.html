@@ -9,25 +9,29 @@
 		<meta charset="utf-8" />
 	</head>
 	<body class="quiji-popup filter-block" checked="checked">
-		<form class="quiji-popup-form">
-			<p>
-				<label>
-					<strong>Ticket ID</strong>
-					<input type="text" size="50" class="quiji-ticket-id" id="quiji-ticket-id" autofocus required />
-				</label>
-          <input type="button" value="last ticket" class="quiji-last-ticket" />
-			</p>
-			<table class="table" border="1" cellpadding="2px" cellspacing="2px">
-        <thead>
-        <tr>
-          <td field="num">Номер</td>
-          <td field="name">Название</td>
-          <td field="visit_date" title="Последнее посещение">Дата</td>
-          <td field="visit_count" title="Количество посещений">Кол</td>
-        </tr>
-        </thead>
-			<tbody class="quiji-list"></tbody>
-      </table>
-		</form>
+  <div>
+    <form class="quiji-popup-form">
+      <p>
+        <label>
+          <strong>Ticket ID</strong>
+          <input type="text" size="50" class="quiji-ticket-id" id="quiji-ticket-id" autofocus required/>
+        </label>
+        <input type="button" value="last ticket" class="quiji-last-ticket"/>
+      </p>
+    </form>
+  </div>
+  <div>
+    <table class="table" border="1" cellpadding="2px" cellspacing="2px">
+      <thead>
+      <tr>
+        <td field="num">Номер</td>
+        <td field="name">Название</td>
+        <td field="visit_date" title="Последнее посещение">Дата</td>
+        <td field="visit_count" title="Количество посещений">Кол</td>
+      </tr>
+      </thead>
+      <tbody class="quiji-list"></tbody>
+    </table>
+  </div>
 	</body>
 </html>

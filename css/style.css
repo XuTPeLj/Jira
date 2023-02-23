@@ -80,8 +80,8 @@ label {
 
 /* Popup window styling */
 .quiji-popup {
-	display: flex;
-	justify-content: center;
+	/*display: flex;*/
+	/*justify-content: center;*/
 	margin: 8px;
 	text-align: center;
 }
@@ -172,8 +172,8 @@ input[type='text'].quiji-options-jira-url {
 
 .quiji-donation-options {
 	align-items: center;
-	display: flex;
-	justify-content: center;
+	/*display: flex;*/
+	/*justify-content: center;*/
 	padding: 20px 0;
 }
 
