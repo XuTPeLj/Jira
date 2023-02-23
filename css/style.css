@@ -229,3 +229,10 @@ input[type='text'].quiji-options-jira-url {
 .quiji-list td.title {
 
 }
+
+.del:hover {
+    background: red;
+}
+.del {
+    cursor: pointer;
+}

@@ -106,7 +106,7 @@ const renderDialog = () => {
       var a=1;
       divListTasks.innerHTML = options.history.map(task => `
 <tr>
-
+<td class="del" taskId="${task.id}">X</td>
   <td class="text">
     <a href="${encodeHTML(task.url)}" target="_blank">
       ${task.id}
@@ -162,4 +162,47 @@ function createLastTicketButton(options) {
 		}
 	}
 	return lastTicketButton;
+}
+
+document.addEventListener('click', function (e){
+  let th = e.target;
+  if (th.className !== 'del') return;
+  if (!confirm('Удалить!?')) return;
+  del(th);
+  hide(th.parentElement);
+});
+
+function del(th) {
+  storage.get(
+    {
+      history: [],
+    },
+    function (getBlock) {
+    getBlock = getBlock.history;
+    let key = 'id';
+    let value = th.getAttribute('taskId');
+
+    for (let i in getBlock) {
+      if (isNaN(i)) break;
+      if (getBlock[i][key] == value) {
+        getBlock.splice(i, 1);
+        storage.set({
+          history: getBlock
+        });
+        return;
+      }
+    }
+  });
+}
+function hide(th) {
+  if (!th) return;
+  th.style.backgroundColor = 'red';
+  $(th).slideUp();
+  /*th.focus();
+  if (document.all('menu')) {
+      console.log('[menu]',document.all('menu'));
+      document.all('menu').click();
+  }*/
+  // setTimeout(() => {
+  // console.log('[hide]', th);
 }
