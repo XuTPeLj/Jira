@@ -4,10 +4,16 @@
   if (!m) return;
 
   document.addEventListener('click', (event) => {
+    if (event.target.nodeName === 'A') {
+      return;
+    }
+
     const $divEdit = $(event.target).closest('div.user-content-block');
+
     if ($divEdit.length !== 1) return;
     event.preventDefault();
     event.stopPropagation();
+
   }, true);
 
   $('#addcomment').attr('style', `
