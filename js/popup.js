@@ -86,7 +86,7 @@ const renderDialog = () => {
 			const currentButton = document.querySelector('.quiji-current-tab');
 			// currentButton.newTab = false;
 
-			const lastTicketButton = createLastTicketButton(options);
+			// const lastTicketButton = createLastTicketButton(options);
 
       form.onsubmit = handleSubmit;
 			// newButton.addEventListener('click', handleSubmit);
@@ -99,7 +99,7 @@ const renderDialog = () => {
 
 			// newButton.value = _browser.i18n.getMessage('newTab');
 			// currentButton.value = _browser.i18n.getMessage('currentTab');
-			lastTicketButton.value = _browser.i18n.getMessage('lastTicket');
+			// lastTicketButton.value = _browser.i18n.getMessage('lastTicket');
 
 
       const divListTasks = document.querySelector('.quiji-list');
