@@ -7,21 +7,17 @@
   const urlPattern = /^https?:\/\/(?:www\.|(?!www))[^\s.]+\.[^\s]{2,}|www\.[^\s]+\.[^\s]{2,}$/;
   const storage = _browser.storage.sync || _browser.storage.local;
 
-  console.log('[storage]', storage);
   if (storage && typeof storage.get === 'function') {
-    console.log('[storage.get]', storage.get);
     storage.get(
       {
         history: [],
       },
       options => {
-        console.log('[options]', options.history);
         // options.history = [];
         const findNom = options.history.findIndex(el => el.id === m[2]);
         if (findNom !== -1) {
           const findElement = options.history[findNom];
           options.history.splice(findNom, 1);
-          options.history.unshift(findElement);
 
           findElement.count += 1;
           findElement.date = (date =>
@@ -40,10 +36,25 @@
             count: 1,
           });
         }
-        console.log('[options.history]', options.history);
+
         storage.set({
           history: options.history
         });
+
+        storage.get(
+          {
+            history: [],
+          },
+          options_ => {
+            const findNom = options_.history.findIndex(el => el.id === m[2]);
+            if (findNom === -1) {
+              options.history.splice(options.history.length - 1, 1);
+
+              storage.set({
+                history: options.history
+              });
+            }
+          });
       }
     );
   }
